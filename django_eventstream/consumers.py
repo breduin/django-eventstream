@@ -2,9 +2,9 @@ import copy
 import threading
 import asyncio
 import six
+from django.core.handlers.asgi import ASGIRequest
 from django.http import HttpResponseBadRequest
 from channels.generic.http import AsyncHttpConsumer
-from channels.http import AsgiRequest
 from channels.db import database_sync_to_async
 from .utils import add_default_headers, sse_encode_error
 
@@ -136,7 +136,7 @@ class EventsConsumer(AsyncHttpConsumer):
 
 		self.listener = None
 
-		request = AsgiRequest(self.scope, body)
+		request = ASGIRequest(self.scope, body)
 
 		def dummy_get_response(request):
 			return None
